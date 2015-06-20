@@ -7,6 +7,7 @@ By reading in the code and any data from stdin; the evaluating application can b
 
 Again, this project by itself is inately **UNSECURE**
 Follow these rules for secure evaluation
+
 1. Assume this process will be compromised
   1. It is meant to be thrown away
   2. Don't inject any data the code under evaluation isn't privileged to see
