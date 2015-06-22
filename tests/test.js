@@ -2,9 +2,11 @@
 var spawn = require('spawn-cmd').spawn,
     testProcess = spawn('node ./src/index.js < ./tests/eval.js'),
     assert = require('assert');
-
+console.log("Modules required and process spawned");
+  
 testProcess.stdout.on('data', function (data) {
   assert.equal(data, 'This is only a test');
+  console.log("Received expected output on stdout");
 });
 
 testProcess.stderr.on('data', function (data) {
@@ -13,4 +15,5 @@ testProcess.stderr.on('data', function (data) {
 
 testProcess.on('close', function (code) {
   assert.equal(code, 0, "The spawned process did not exit cleanly");
+  
 });
