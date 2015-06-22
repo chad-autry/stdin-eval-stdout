@@ -12,6 +12,5 @@ testProcess.stderr.on('data', function (data) {
 });
 
 testProcess.on('close', function (code) {
-  assert.equal(code, 0);
+  assert.equal(code, 0, "The spawned process did not exit cleanly");
 });
-console.log("Huzzah! The simple single test passes");
