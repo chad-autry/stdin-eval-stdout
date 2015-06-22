@@ -1,8 +1,12 @@
 //I hear you like to run node in your node, so I'm testing node using node
 var spawn = require('spawn-cmd').spawn,
-    testProcess = spawn('ls'),
-    assert = require('assert');
-console.log(process.env.PATH);
+    assert = require('assert'),
+    fs = require('fs');
+
+var evalStream = fs.createReadStream('./tests/eval.js');
+
+var testProcess = spawn('node',['./src/index.js']);
+evalStream.pipe(testProcess.stdin);
   
 testProcess.stdout.on('data', function (data) {
   assert.equal(data, 'This is only a test');
