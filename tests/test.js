@@ -1,6 +1,6 @@
 //I hear you like to run node in your node, so I'm testing node using node
 var spawn = require('spawn-cmd').spawn,
-    testProcess = spawn('node ./index.js < ./tests/eval.js'),
+    testProcess = spawn('node ./src/index.js < ./tests/eval.js'),
     assert = require('assert');
 
 testProcess.stdout.on('data', function (data) {
