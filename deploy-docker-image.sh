@@ -1,11 +1,11 @@
 #!/bin/bash
-set -ev;
-mkdir -p target/docker-image;
-cp ./package.json ./target/docker-image/package.json;
-cp ./Dockerfile ./target/docker-image/Dockerfile;
-cp ./README.md ./target/docker-image/README.md;
-cp -r ./src ./target/docker-image/src;
-cp -r ./node_modules /target/docker-image/node_modules;
+set -ev
+mkdir -p target/docker-image
+cp ./package.json ./target/docker-image/package.json
+cp ./Dockerfile ./target/docker-image/Dockerfile
+cp ./README.md ./target/docker-image/README.md
+cp -r ./src ./target/docker-image/src
+cp -r ./node_modules /target/docker-image/node_modules 2>/dev/null || :
 cd target/docker-image
 git init
 git config user.name ${GH_NAME}
