@@ -14,3 +14,9 @@ after_success:
 - npm prune --production
 - chmod ugo+x ./deploy-docker-image.sh
 - ./deploy-docker-image.sh
+
+     
+# whitelist
+branches:
+  only:
+    - master

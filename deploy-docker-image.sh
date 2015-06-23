@@ -12,4 +12,4 @@ git config user.name ${GH_NAME}
 git config user.email ${GH_EMAIL}
 git add .
 git commit -m "Deployed to docker-image branch"
-git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:docker-image > /dev/null 2>&1
+git push --force "https://${GH_TOKEN}@${GH_REF}" master:docker-image > /dev/null 2>&1
