@@ -4,6 +4,7 @@ mkdir -p target/docker-image
 cp ./package.json ./target/docker-image/package.json
 cp ./Dockerfile ./target/docker-image/Dockerfile
 cp ./README.md ./target/docker-image/README.md
+cp ./.dockerignore ./target/docker-image/.dockerignore
 cp -r ./src ./target/docker-image/src
 cp -r ./node_modules /target/docker-image/node_modules 2>/dev/null || :
 cd target/docker-image
