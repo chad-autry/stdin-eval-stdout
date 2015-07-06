@@ -4,7 +4,8 @@
   "description": "Evaluate code (and data) provided on stdin and write output to stdout",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/test.js"
+    "test": "node ./tests/test.js",
+    "jshint": "jshint ./src && jshint ./tests"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,13 @@
   "homepage": "https://github.com/chad-autry/stdin-eval-stdout",
   "devDependencies": {
     "assert": "^1.3.0",
+    "jshint": "^2.8.0",
     "spawn-cmd": "0.0.2"
+  },
+  "jshintConfig": {
+    "node": "true"
+  },
+  "dependencies": {
+    "request-response": "0.0.3"
   }
 }

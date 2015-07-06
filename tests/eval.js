@@ -1,1 +1,1 @@
-process.stdout.write('This is only a test');
+requestHelper.writeRequest('This is only a test');
