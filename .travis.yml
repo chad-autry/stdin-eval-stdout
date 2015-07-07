@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '0.10'
+env:
+  global:
+  - GH_REF: github.com/chad-autry/stdin-eval-stdout
+before_install:
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+script:
+- npm test
+after_success:
+- npm prune --production
+- chmod ugo+x ./deploy-docker-image.sh
+- ./deploy-docker-image.sh
+
+     
+# whitelist
+branches:
+  only:
+    - master

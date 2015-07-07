@@ -1,0 +1,5 @@
+.gitignore
+.travis.yml
+deploy-docker-image.sh
+LICENSE
+READ.md
