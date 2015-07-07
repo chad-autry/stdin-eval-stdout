@@ -23,7 +23,7 @@ if (!useDocker) {
     firstTestProcess = spawn('docker',['run', '-i', 'chadautry/stdin-eval-stdout:automated']);
 }
 
-var firstTestProcessRequestHelper = new RequestHelper(firstTestProcess.stdout,firstTestProcess.stdin, false);
+var firstTestProcessRequestHelper = new RequestHelper(firstTestProcess.stdout,firstTestProcess.stdin);
 firstTestProcessRequestHelper.pipeRequest(evalStream);
   
 //We expect this process to write out a specific phrase before it closes
@@ -39,7 +39,7 @@ firstTestProcessRequestHelper.on('request', function (requestId, data) {
 firstTestProcess.stderr.setEncoding('utf8');
 firstTestProcess.stderr.on('data', function (data) {
     console.log("stderr:"+data);
-   // assert.fail(data, "nothing", "Did not expect any stderr", ":");
+    assert.fail(data, "nothing", "Did not expect any stderr", ":");
 });
 
 //We expect this process to close. In fact I think we need to wait for the process to close so we don't close ourself...
@@ -61,7 +61,7 @@ if (!useDocker) {
     secondTestProcess = spawn('docker',['run', '-i', 'chadautry/stdin-eval-stdout:automated']);
 }
 
-var secondTestProcessRequestHelper = new RequestHelper(secondTestProcess.stdout,secondTestProcess.stdin, false);
+var secondTestProcessRequestHelper = new RequestHelper(secondTestProcess.stdout,secondTestProcess.stdin);
 secondTestProcessRequestHelper.pipeRequest(scriptUnderTestTwoStream);
 
 var secondTestProcesWroteOut = false;

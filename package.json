@@ -34,6 +34,6 @@
     "node": "true"
   },
   "dependencies": {
-    "request-response": "0.0.3"
+    "request-response": "^0.1.2"
   }
 }
