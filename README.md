@@ -9,7 +9,7 @@ The request-response object remains available to facilitate two way communicatio
 
 ## Usage
 
-Here is an example of securely evaluating a script inside a child process which makes a request containing "Hello World!"
+Here is an example of securely evaluating a script inside a child process which makes a request back to the parent process containing the body "Hello World!"
 
 ```
 //spawn-cmd simply wraps child_process.spawn to work on windows
@@ -43,7 +43,8 @@ setTimeout(function(){process.exit()}, 5000).unref();
 
 ## Motivation
 
-Securely evaluate user submitted Javascript. Secureity isn't accomplished just by using the image and still requires following some rules:
+Securely evaluate user submitted Javascript. Security isn't accomplished just by using the image and still requires following some rules:
+
 1. Assume the spawned process will be compromised
   1. It is meant to be thrown away, don't re-use
   2. Don't inject any data into the process the code under evaluation isn't privileged to see
@@ -53,4 +54,4 @@ Securely evaluate user submitted Javascript. Secureity isn't accomplished just b
 
 ## Further Customizations
 
-Currently any higher level API written on top of request-response has to be injected into the child process with the code under test. If there is a large static request-response using API, or any other library you wish the evaluated code had access to, simply add it to the dependencies and require it in index.js.
+Currently any higher level API written on top of request-response has to be injected into the child process with the code to be evaluated. If there is a large static request-response using API, or any other library you wish the evaluated code had access to, simply add it to the dependencies and require it in index.js.

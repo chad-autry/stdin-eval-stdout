@@ -7,7 +7,7 @@ cp ./README.md ./target/docker-image/README.md
 cp ./.dockerignore ./target/docker-image/.dockerignore
 cp ./.travis.yml ./target/docker-image/.travis.yml
 cp -r ./src ./target/docker-image/src
-cp -r ./node_modules /target/docker-image/node_modules
+cp -r ./node_modules ./target/docker-image/node_modules 2>/dev/null || :
 cd target/docker-image
 git init
 git config user.name ${GH_NAME}
