@@ -4,8 +4,10 @@
   "description": "Evaluate code (and data) provided on stdin and write output to stdout",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/test.js",
-    "jshint": "jshint ./src && jshint ./tests"
+    "test": "npm run jshint && node ./tests/test.js",
+    "jshint": "jshint ./src && jshint ./tests",
+    "testDocker": "node ./tests/test.js docker",
+    "example": "node ./tests/example.js"
   },
   "repository": {
     "type": "git",

@@ -1,15 +1,56 @@
-# stdin-eval-stdout
-A Node.js application to evaluate JavascriptCode (and data) provided on stdin and allow output to be written to stdout
+### Status
+[![Build Status](https://travis-ci.org/chad-autry/request-response.svg?branch=master)](https://travis-ci.org/chad-autry/stdin-eval-stdout)
+[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/u/chadautry/stdin-eval-stdout/)
 
-# Why would you do this?
-The goal is to securely evaluate user provided JavaScript on the server. If you research the problem any, you'll find out its hard.
-By reading in the code and any data from stdin; the evaluating application can be run in a process which is denied access to network and disk, and is limited in the memory and cpu it can use. 
+## Synopsis
 
-Again, this project by itself is inately **UNSECURE**
-Follow these rules for secure evaluation
+A secure Javascript sandbox using Node.js and Docker. Uses [request-response](https://www.npmjs.com/package/request-response) to push the initial script for evaluation into the Docker process.
+The request-response object remains available to facilitate two way communication between the parent and child.
 
-1. Assume this process will be compromised
-  1. It is meant to be thrown away
-  2. Don't inject any data the code under evaluation isn't privileged to see
-2. Secure the process itself to the amount of time, the amount of memory, the lack of disk access, the lack of network
-3. Treat it as a client, trust nothing which is written back to stdout which isn't validated
+## Usage
+
+Here is an example of securely evaluating a script inside a child process which makes a request containing "Hello World!"
+
+```
+//spawn-cmd simply wraps child_process.spawn to work on windows
+var spawn = require('spawn-cmd').spawn,
+    RequestHelper = require('request-response');
+
+/* -i for interactive
+ * --net="none" to deny network
+ * --read-only to deny disk writes
+ * --memory="32m" to limit the memory. Make sure its enough since we have no swap (--read-only disallows swap space?)
+ */
+var evalProcess = spawn('docker',['run', '-i', '--net="none"', '--read-only', '--memory="32m"', 'chadautry/stdin-eval-stdout:automated']);
+
+//Setup our request-response helper
+var requestHelper = new RequestHelper(evalProcess.stdout,evalProcess.stdin);
+evalProcess.stdin.setEncoding('utf8');
+evalProcess.stdout.setEncoding('utf8');
+
+//Setup a listener to handle requests from the child process
+requestHelper.on('request', function (requestId, msgBody) {
+   console.log(msgBody);
+   evalProcess.stdin.end(); //closing stdin allows the child process to end (assuming it hasn't started any other callbacks outside of the request-response)
+});
+
+//Write the code (could also pipe it) to evalute into the process. In this case just making use of request helper to write a request straight back
+requestHelper.writeRequest('requestHelper.writeRequest("Hello World!")');
+
+//Rule #3! Always set a timeout, as the code being evaluated might never return
+setTimeout(function(){process.exit()}, 5000).unref();
+```
+
+## Motivation
+
+Securely evaluate user submitted Javascript. Secureity isn't accomplished just by using the image and still requires following some rules:
+1. Assume the spawned process will be compromised
+  1. It is meant to be thrown away, don't re-use
+  2. Don't inject any data into the process the code under evaluation isn't privileged to see
+2. Secure the process itself (using Docker) to the CPU share, the amount of memory, the lack of disk access, the lack of network
+3. Run a time out from the parent process the limit real world time execution
+4. Treat the child process as a client, trust nothing which is written back to parent which isn't validated
+
+## Further Customizations
+
+Currently any higher level API written on top of request-response has to be injected into the child process with the code under test. If there is a large static request-response using API, or any other library you wish the evaluated code had access to, simply add it to the dependencies and require it in index.js.

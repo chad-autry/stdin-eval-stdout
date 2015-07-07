@@ -97,7 +97,7 @@ secondTestProcess.on('close', function (code) {
 
 
 //It is possible for things to hang if they didn't work
-setTimeout(function(){process.exit()}, 5000).unref();
+setTimeout(function(){process.exit();}, 5000).unref();
 
 //Verify that all of the expected callbacks were called
 process.on('exit', function(code) {
