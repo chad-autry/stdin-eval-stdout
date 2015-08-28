@@ -1,3 +1,6 @@
+sudo: required
+services:
+  - docker
 language: node_js
 node_js:
 - '0.10'
@@ -9,13 +12,9 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 script:
 - npm test
-after_success:
 - npm prune --production
-- chmod ugo+x ./deploy-docker-image.sh
-- ./deploy-docker-image.sh
-
-     
-# whitelist
-branches:
-  only:
-    - master
+- docker build -t chadautry/stdin-eval-stdout:latest .
+- if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag chadautry/stdin-eval-stdout:latest chadautry/stdin-eval-stdout:$TRAVIS_TAG ; fi
+after_success:
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker push chadautry/stdin-eval-stdout

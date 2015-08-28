@@ -1,5 +1,8 @@
+.git
 .gitignore
 .travis.yml
-deploy-docker-image.sh
+tests
 LICENSE
 READ.md
+npm-debug.log
+package.json
