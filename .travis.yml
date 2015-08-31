@@ -1,6 +1,6 @@
 sudo: required
 services:
-- docker
+  - docker
 language: node_js
 node_js:
 - '0.10'
