@@ -1,5 +1,5 @@
 ### Status
-[![Build Status](https://travis-ci.org/chad-autry/request-response.svg?branch=master)](https://travis-ci.org/chad-autry/stdin-eval-stdout)
+[![Build Status](https://travis-ci.org/chad-autry/stdin-eval-stdout.svg?branch=master)](https://travis-ci.org/chad-autry/stdin-eval-stdout)
 [![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/u/chadautry/stdin-eval-stdout/)
 
 ## Synopsis

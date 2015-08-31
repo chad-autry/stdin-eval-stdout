@@ -7,12 +7,11 @@ node_js:
 env:
   global:
   - GH_REF: github.com/chad-autry/stdin-eval-stdout
-before_script:
-- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 script:
 - npm test
 - npm prune --production
 - docker build -t chadautry/stdin-eval-stdout:latest .
 - if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag chadautry/stdin-eval-stdout:latest chadautry/stdin-eval-stdout:$TRAVIS_TAG ; fi
 after_script:
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker push chadautry/stdin-eval-stdout
