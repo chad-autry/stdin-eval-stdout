@@ -14,5 +14,5 @@ script:
 - npm prune --production
 - docker build -t chadautry/stdin-eval-stdout:latest .
 - if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag chadautry/stdin-eval-stdout:latest chadautry/stdin-eval-stdout:$TRAVIS_TAG ; fi
-after_success:
+after_script:
 - docker push chadautry/stdin-eval-stdout
