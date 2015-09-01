@@ -13,4 +13,4 @@ script:
 - docker build -t chadautry/stdin-eval-stdout:latest .
 after_script:
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- docker push chadautry/stdin-eval-stdout
+- docker push chadautry/stdin-eval-stdout:latest
