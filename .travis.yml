@@ -1,16 +1,8 @@
 sudo: required
-
 services:
   - docker
 
-language: node_js
-
-node_js:
-- '0.10'
-
 script:
-- npm test
-- npm prune --production
 - docker build -t chadautry/stdin-eval-stdout:latest .
 
 after_script:
