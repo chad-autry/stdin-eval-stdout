@@ -1,6 +1,6 @@
 {
   "name": "stdin-eval-stdout",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Evaluate code (and data) provided on stdin and write output to stdout",
   "main": "index.js",
   "scripts": {
